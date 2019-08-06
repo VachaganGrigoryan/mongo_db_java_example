@@ -42,6 +42,7 @@ public class MongoDB {
 
         Map findobj = new HashMap();
         findobj.put("_id",1);
+
         HashMap<String,String> updateobj = new HashMap<String,String>();
         updateobj.put("name","Anna");
         updateobj.put("lastname","Sargsyan");
