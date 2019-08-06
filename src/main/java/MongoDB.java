@@ -40,9 +40,9 @@ public class MongoDB {
 
         collection.insertOne(createDocument(user));
 
-        HashMap findobj = new HashMap();
+        Map findobj = new HashMap();
         findobj.put("_id",1);
-        HashMap updateobj = new HashMap();
+        HashMap<String,String> updateobj = new HashMap<String,String>();
         updateobj.put("name","Anna");
         updateobj.put("lastname","Sargsyan");
 
@@ -51,19 +51,17 @@ public class MongoDB {
         showCollection(collection);
     }
 
-    private static void updateCollection(MongoCollection<Document> collection, HashMap findOBJ,HashMap updateOBJ){
+    private static void updateCollection(MongoCollection<Document> collection, Map findOBJ,HashMap<String,String> updateOBJ){
         Set set = updateOBJ.entrySet();
         Iterator iterator = set.iterator();
         String key = "";
-        String value = "";
         for (Object i : findOBJ.keySet()) {
             key = i.toString();
-            value = findOBJ.get(i).toString();
         }
-        System.out.println(key+value);
         while(iterator.hasNext()) {
             Map.Entry mentry = (Map.Entry)iterator.next();
-            collection.updateOne(Filters.eq(key, value), Updates.set(mentry.getKey().toString(), mentry.getValue().toString()));
+            System.out.println(key+mentry.getKey().toString()+ mentry.getValue().toString());
+            collection.updateOne(Filters.eq(key, findOBJ.get(key)), Updates.set(mentry.getKey().toString(), mentry.getValue().toString()));
         }
     }
 
